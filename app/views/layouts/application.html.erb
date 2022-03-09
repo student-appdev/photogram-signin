@@ -3,18 +3,44 @@
   <head>
     <title>PhotogramSignin2</title>
     <%= csrf_meta_tags %>
-
     <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
     <meta charset="utf-8">
-
     <!-- Make it responsive to small screens -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
-
   <body>
+    <nav>
+      <ul>
+        <%if session.fetch(:user_id) == nil%>
+        <li>
+          <a href="/user_sign_up">Sign Up</a>
+        </li>
+          <%end%>
+        <li>
+          <%if session.fetch(:user_id) == nil%>
+          <a href="/user_sign_in">Sign In</a>
+          <%else%>
+            <a href="/user_sign_out">Sign Out</a>
+            <%end%>
+        </li>
+        <li>
+          <a href="/users">Users</a>
+        </li>
+        <li>
+          <a href="/photos">Photos</a>
+        </li>
+        <li><%=session.fetch(:user_id)%></li>
+      </ul>
+    </nav>
+
+<%if notice.present? %>
+    <div style="border:thin green solid;"><%= notice %></div> 
+<%end%>
+<%if alert.present? %>
+    <div style="border:thin red solid;"><%= alert %></div>
+<%end%>
     <%= yield %>
   </body>
 </html>
